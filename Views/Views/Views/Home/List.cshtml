@@ -1,0 +1,36 @@
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Razor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <script id="jsonData" type="application/json">
+        @Json.Serialize(new string[] { "Json.Serialize", "Json.Serialize", "Json.Serialize" })
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var list = $("#list")
+            JSON.parse($("#jsonData").text()).forEach(function (val) {
+                list.append($("<li>").text(val));
+            });
+        });
+    </script>
+</head>
+
+<body class="m-1 p-1">
+    This is the List View
+    @*<partial name="MyPartial" /></body>*@
+    @await Html.PartialAsync("MyStronglyTypedPartial", new string[] { "Html.PartialAsync", "Html.PartialAsync", "Html.PartialAsync" })
+    <ul id="list"></ul>
+</body>
+</html>

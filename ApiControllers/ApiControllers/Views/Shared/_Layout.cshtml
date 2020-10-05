@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RESTful Controllers</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("form").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "api/reservation",
+                    contentType: "application/json",
+                    method: "POST",
+                    data: JSON.stringify({
+                        clientName: this.elements["ClientName"].value,
+                        location: this.elements["Location"].value
+                    }),
+                    success: function (data) {
+                        addTableRow(data);
+                    }
+                })
+            });
+        });
+
+        var addTableRow = function (reservation) {
+            $("table tbody").append("<tr><td>" + reservation.reservationId + "</td><td>"
+                + reservation.clientName + "</td><td>" + reservation.location + "</td></tr>");
+        }
+    </script>
+</head>
+<body class="m-1 p-1">
+    <div id="output"></div>
+    @RenderBody()
+</body>
+</html>

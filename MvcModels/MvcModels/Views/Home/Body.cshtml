@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Address";
+    Layout = "_Layout";
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("button").click(function (e) {
+                $.ajax("/Home/Body", {
+                    method: "post",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        firstName: "Bob",
+                        lastName: "Smith"
+                    }),
+                    success: function (data) {
+                        $("#firstName").text(data.firstName);
+                        $("#lastName").text(data.lastName);
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<table class="table table-sm table-bordered table-striped">
+    <tr><th>First Name:</th><td id="firstName"></td></tr>
+    <tr><th>Last Name:</th><td id="lastName"></td></tr>
+</table>
+
+<button class="btn btn-primary">Submit</button>
+
+
+@*<script>
+    $(document).ready(function () {
+        $("form").submit(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "api/reservation",
+                contentType: "application/json",
+                method: "POST",
+                data: JSON.stringify({
+                    clientName: this.elements["ClientName"].value,
+                    location: this.elements["Location"].value
+                }),
+                success: function (data) {
+                    addTableRow(data);
+                }
+            })
+        });
+    });
+
+    var addTableRow = function (reservation) {
+        $("table tbody").append("<tr><td>" + reservation.reservationId + "</td><td>"
+            + reservation.clientName + "</td><td>" + reservation.location + "</td></tr>");
+    }
+</script>*@
